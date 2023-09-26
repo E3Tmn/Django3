@@ -29,9 +29,9 @@
     ```python
     remove_chastisements('Сергеев Ираклий Фёдорович')
     ```
- 2. Добавляем хорошие комментарии `create_commendation(name, lesson, year, letter)`. `name` - ФИО ученика, `lesson` - название урока, `year` - год обучения, `letter` - буква класса
+ 2. Добавляем хорошие комментарии `create_commendation(name, lesson, year, letter)`. `name` - ФИО ученика, `lesson` - название урока
     ```python
-    create_commendation('Сергеев Ираклий Фёдорович', 'Информатика', 6, 'А')
+    create_commendation('Сергеев Ираклий Фёдорович', 'Информатика')
     ```
     Комментарий добавится только к последнему уроку.
 ## Цели проекта
