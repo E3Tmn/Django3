@@ -1,6 +1,5 @@
 from datacenter.models import Mark, Lesson, Chastisement, Schoolkid, Commendation
 import random
-from django.core.exceptions import ObjectDoesNotExist, MultipleObjectsReturned
 
 
 LAUDATORY_COMMENTS = ['Молодец!', 'Ты меня очень обрадовал!', 'С каждым разом у тебя получается всё лучше!', 'Я вижу, как ты стараешься!']
@@ -9,9 +8,9 @@ LAUDATORY_COMMENTS = ['Молодец!', 'Ты меня очень обрадо�
 def get_schoolkid(name):
     try:
         schoolkid = Schoolkid.objects.get(full_name__contains=name)
-    except ObjectDoesNotExist:
+    except Schoolkid.DoesNotExist:
         return 'Does Not Exist!'
-    except MultipleObjectsReturned:
+    except Schoolkid.MultipleObjectsReturned:
         return 'Multiple Objects Returned!'
     return schoolkid
 
@@ -30,4 +29,7 @@ def create_commendation(name, lesson):
     text = random.choice(LAUDATORY_COMMENTS)
     schoolkid = get_schoolkid(name)
     last_lesson = Lesson.objects.filter(year_of_study=schoolkid.year_of_study, group_letter=schoolkid.group_letter, subject__title=lesson).order_by('-date').first()
-    Commendation.objects.create(text=text, created=last_lesson.date, schoolkid=schoolkid, subject=last_lesson.subject, teacher=last_lesson.teacher)
+    if last_lesson is not None:
+        Commendation.objects.create(text=text, created=last_lesson.date, schoolkid=schoolkid, subject=last_lesson.subject, teacher=last_lesson.teacher)
+    else:
+        print('Lesson Does Not Exist!')
