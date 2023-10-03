@@ -9,9 +9,9 @@ def get_schoolkid(name):
     try:
         schoolkid = Schoolkid.objects.get(full_name__contains=name)
     except Schoolkid.DoesNotExist:
-        return 'Does Not Exist!'
+        raise Schoolkid.DoesNotExist
     except Schoolkid.MultipleObjectsReturned:
-        return 'Multiple Objects Returned!'
+        raise Schoolkid.MultipleObjectsReturned
     return schoolkid
 
 
